@@ -1,0 +1,53 @@
+body {
+  font-family: 'Manrope', sans-serif;
+  display: flex;
+  justify-content: center; /* Горизонтальне вирівнювання по центру */
+  align-items: first baseline; /* Вертикальне вирівнювання по центру */
+  height: 100vh; /* Висота екрану */
+  margin-top: 36px; /* Відсутність зовнішніх відступів */
+}
+
+.search-form {
+  margin-bottom: 20px;
+}
+
+.image-query {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  display: none;
+  margin: 20px auto; /* Центрування по горизонталі */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
