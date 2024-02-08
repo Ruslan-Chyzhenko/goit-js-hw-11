@@ -1,92 +1,83 @@
-// Описаний у документації
+// Described in the documentation
 import iziToast from "izitoast";
-// Додатковий імпорт стилів
+// Additional import for styles
 import "izitoast/dist/css/iziToast.min.css";
 
-// Отримуємо посилання на елементи форми
+// Get references to form elements
 const form = document.querySelector('.search-form');
 const queryInput = document.querySelector('.image-query');
 
-// Додаємо обробник події відправки форми
+// Add event listener for form submission
 form.addEventListener('submit', function(event) {
-    // Зупиняємо типову поведінку форми
+    // Prevent default form behavior
     event.preventDefault();
 
-    // Отримуємо значення, введене користувачем
+    // Get the value entered by the user
     const query = queryInput.value.trim();
 
-    // Перевірка, чи не є поле пошуку порожнім
+    // Check if the search field is empty
     if (query === '') {
-        // Показуємо повідомлення про помилку, використовуючи бібліотеку iziToast
+        // Show error message using iziToast library
         iziToast.show({
-            title: 'Помилка',
-            message: 'Будь ласка, введіть пошуковий запит.',
-            backgroundColor: '#ff0000', // Задаємо червоний колір фону для повідомлення про помилку
-            timeout: 5000 // Задаємо час (у мілісекундах), протягом якого повідомлення буде видимим (у цьому випадку - 5 секунд)
+            title: 'Error',
+            message: 'Please enter a search query.',
+            backgroundColor: '#ff0000', // Set red background color for error message
+            timeout: 5000 // Set the time (in milliseconds) for which the message will be visible (in this case - 5 seconds)
         });
-        return; // Виходимо з функції, якщо поле пошуку порожнє
+        return; // Exit the function if the search field is empty
     }
 
-    // Викликаємо функцію для виконання пошуку (ваша власна логіка)
+    // Call the function to perform the search (your own logic)
     performSearch(query);
 });
 
-// Функція для виконання пошуку (приклад)
-function performSearch(query) {
-    // Ваша логіка пошуку тут
-    // Наприклад, виконання HTTP-запиту із цим пошуковим рядком
-    // Можна використовувати fetch або інші методи для виконання запитів
-    // Наприклад:
-    fetch(`https://example.com/search?query=${query}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Сталася помилка при виконанні запиту.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Обробка отриманих даних
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('Помилка:', error.message);
-        });
+// Function to perform the search (example)
+async function performSearch(query) {
+    // Your search logic here
+    // Call the function to make an HTTP request to the Pixabay API
+    try {
+        await searchImages(query);
+    } catch (error) {
+        console.error('Error performing search:', error.message);
+    }
 }
 
-// Змінна з ключем доступу до API Pixabay
-const API_KEY = '42262858-7b31826aafbc45fb5436f2ee9';
-
-// Функція для виконання HTTP-запиту до API Pixabay
+// Function to make an HTTP request to the Pixabay API
 async function searchImages(query) {
+    // Variable with the API key for the Pixabay API
+    const API_KEY = '42262858-7b31826aafbc45fb5436f2ee9'; // Declare API_KEY at the beginning of the function
+
     const url = `https://pixabay.com/api/?key=${API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&orientation=horizontal&safesearch=true`;
 
     try {
         const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error('Сталася помилка при виконанні запиту.');
+            throw new Error('An error occurred while making the request.');
         }
 
         const data = await response.json();
 
         if (data.hits.length === 0) {
-            // Показати повідомлення про відсутність результатів за допомогою бібліотеки iziToast
+            // Show message about no results using the iziToast library
             iziToast.error({
-                title: 'Помилка',
+                title: 'Error',
                 message: 'Sorry, there are no images matching your search query. Please try again!'
             });
         } else {
-            // Обробити отримані дані та відобразити зображення у вашому веб-додатку
+            // Process the received data and display the images in your web application
             displayImages(data.hits);
         }
     } catch (error) {
-        console.error('Помилка:', error.message);
-        // Обробка помилки під час виконання запиту
-        // Можна також показати повідомлення про помилку за допомогою бібліотеки iziToast
+        console.error('Error:', error.message);
+        // Handling error while making the request
+        // You can also show an error message using the iziToast library
+        throw error; // Pass the error up for handling above
     }
 }
 
-// Функція для відображення зображень у вашому веб-додатку
+// Function to display images in your web application
 function displayImages(images) {
-    // Ваша логіка відображення зображень
+    // Your logic for displaying images
+    console.log(images); // Example: outputting received images to the console
 }
