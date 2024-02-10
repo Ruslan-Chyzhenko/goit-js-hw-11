@@ -1,14 +1,17 @@
 body {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   display: flex;
-  justify-content: center; /* Горизонтальне вирівнювання по центру */
-  align-items: first baseline; /* Вертикальне вирівнювання по центру */
-  height: 100vh; /* Висота екрану */
-  margin-top: 36px; /* Відсутність зовнішніх відступів */
+  justify-content: center;
+  height: 100vh;
 }
 
 .search-form {
-  margin-bottom: 20px;
+  padding: 10px;
+  position: fixed;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  z-index: 999;
 }
 
 .image-query {
@@ -16,6 +19,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  margin-right: 10px;
 }
 
 .search-button {
@@ -49,5 +53,78 @@ body {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Container for the gallery */
+.gallery {
+  display: flex; /* Використовуємо flexbox */
+  flex-wrap: wrap; /* Переносимо елементи на наступний рядок, якщо вони виходять за межі контейнера */
+  justify-content: space-between; /* Розподіляємо елементи вздовж головної вісі з рівномірним простором між ними */
+  padding: 20px; /* Додаємо відступи по краях контейнера */
+  gap: 20px; /* Задаємо відстань між картками */
+  margin-top: 50px;
+}
+
+/* Individual card within the gallery */
+.card {
+  width: calc(
+    20% - 20px
+  ); /* Задаємо ширину кожної картки так, щоб вона займала 20% ширини контейнера з врахуванням відступів */
+  box-sizing: border-box; /* Включаємо padding і border у загальну ширину елемента */
+}
+
+/* Image within the card */
+.card img {
+  width: 100%; /* Задаємо ширину зображення відповідно до розміру картки */
+  height: auto; /* Забезпечуємо відповідне пропорційне змінювання висоти */
+  border-radius: 5px; /* Закруглюємо кути зображення */
+}
+
+.property {
+  display: flex;
+  align-items: center; /* Вирівнюємо елементи по вертикалі */
+}
+
+.property-name {
+  margin-right: 10px; /* Додаємо відступ між назвою властивості та значенням */
+}
+
+.loader {
+  width: 8px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+  border-radius: 4px;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite alternate;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: 20px 0 rgba(255, 255, 255, 0), 40px 0 rgba(255, 255, 255, 0),
+      60px 0 rgba(255, 255, 255, 0), 80px 0 rgba(255, 255, 255, 0),
+      100px 0 rgba(255, 255, 255, 0);
+  }
+  20% {
+    box-shadow: 20px 0 white, 40px 0 rgba(255, 255, 255, 0),
+      60px 0 rgba(255, 255, 255, 0), 80px 0 rgba(255, 255, 255, 0),
+      100px 0 rgba(255, 255, 255, 0);
+  }
+  40% {
+    box-shadow: 20px 0 white, 40px 0 white, 60px 0 rgba(255, 255, 255, 0),
+      80px 0 rgba(255, 255, 255, 0), 100px 0 rgba(255, 255, 255, 0);
+  }
+  60% {
+    box-shadow: 20px 0 white, 40px 0 white, 60px 0 white,
+      80px 0 rgba(255, 255, 255, 0), 100px 0 rgba(255, 255, 255, 0);
+  }
+  80% {
+    box-shadow: 20px 0 white, 40px 0 white, 60px 0 white, 80px 0 white,
+      100px 0 rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 20px 0 white, 40px 0 white, 60px 0 white, 80px 0 white,
+      100px 0 white;
   }
 }
