@@ -79,15 +79,6 @@ body {
   border-radius: 5px;
 }
 
-.property {
-  display: flex;
-  align-items: center;
-}
-
-.property-name {
-  margin-right: 10px;
-}
-
 .loader {
   width: 8px;
   height: 48px;
