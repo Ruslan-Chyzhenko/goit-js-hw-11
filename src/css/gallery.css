@@ -55,7 +55,6 @@ body::before {
   background-color: #0056b3;
 }
 
-/* Container for the gallery */
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -65,13 +64,11 @@ body::before {
   margin-top: 50px;
 }
 
-/* Individual card within the gallery */
 .card {
   width: calc(20% - 20px);
   box-sizing: border-box;
 }
 
-/* Image within the card */
 .card img {
   width: 100%;
   height: auto;
