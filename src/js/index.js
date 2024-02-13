@@ -5,8 +5,12 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const lightbox = new SimpleLightbox('.gallery a');
 const gallery = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
+const form = document.querySelector('.search-form');
 
 async function searchImages(query) {
+    showLoader(); // Показати loader перед запитом
+
     const API_KEY = '42262858-7b31826aafbc45fb5436f2ee9';
     const url = `https://pixabay.com/api/?key=${API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&orientation=horizontal&safesearch=true`;
 
@@ -23,10 +27,13 @@ async function searchImages(query) {
             toastError('Sorry, there are no images matching your search query. Please try again!');
         } else {
             displayImages(data.hits);
+            resetForm(); // Скинути значення форми
         }
     } catch (error) {
         console.error('Error:', error.message);
         toastError(`Error fetching images: ${error}`);
+    } finally {
+        hideLoader(); // Приховати loader після завершення запиту або у випадку помилки
     }
 }
 
@@ -78,8 +85,19 @@ function toastError(message) {
     });
 }
 
+function showLoader() {
+    loader.classList.remove('hidden');
+}
+
+function hideLoader() {
+    loader.classList.add('hidden');
+}
+
+function resetForm() {
+    form.reset();
+}
+
 function initializeSearch() {
-    const form = document.querySelector('.search-form');
     form.addEventListener('submit', async function(event) {
         event.preventDefault();
         const queryInput = event.target.elements.query.value.trim();
